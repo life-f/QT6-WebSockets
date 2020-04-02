@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>icon.png</file>
+    </qresource>
+    <qresource prefix="/settings"/>
+    <qresource prefix="/">
+        <file>setting.ini</file>
+    </qresource>
+</RCC>
