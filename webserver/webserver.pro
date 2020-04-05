@@ -20,19 +20,18 @@ RESOURCES += res.qrc
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    server.cpp \
-    settings.cpp
+    server.cpp
 
 HEADERS += \
     mainwindow.h \
-    server.h \
-    settings.h
+    server.h
 
 FORMS += \
-    mainwindow.ui \
-    settings.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=

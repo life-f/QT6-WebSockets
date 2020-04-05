@@ -22,6 +22,7 @@ private:
     Ui::MainWindow *ui;
     QWebSocket *socketClient;
     QString nick = " ";
+    quint16 port;
     Authorisation* dialog;
 
 public:
@@ -61,8 +62,5 @@ private slots:
      * @brief server disconnected
      */
     void serverDisconnected();
-
-signals:
-    void auth();
 };
 #endif // MAINWINDOW_H

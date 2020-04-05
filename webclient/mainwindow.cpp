@@ -13,11 +13,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     dialog = new Authorisation();
     this->authorisation();
-//    this->nick = dialog->getNick();
+    this->nick = dialog->getNick();
+    this->port = dialog->getPort();
     ui->nick->setText(this->nick);
     if (nick != " "){
         socketClient = new QWebSocket();
-        QUrl urlServ = QUrl(QString("ws://127.0.0.1:1337"));
+        QUrl urlServ = QUrl(QString("ws://127.0.0.1:"));
+        urlServ.setPort(port);
         socketClient->open(urlServ);
     }
 
@@ -46,23 +48,18 @@ void MainWindow::connected(){
 
 void MainWindow::execButtonAction()
 {
-    if(/*ui->nick->text().toUtf8() == ""){
-         QMessageBox::information(NULL,QObject::tr("Ошибка"),tr("Введите ник"));
-         return;
-    } else if (*/ui->message->text().toUtf8() == ""){
+    if(ui->message->text().toUtf8() == ""){
          QMessageBox::information(NULL,QObject::tr("Ошибка"),tr("Введите сообщение"));
          return;
-    } else
+    } else {
         socketClient->sendTextMessage(nick + " " + ui->message->displayText());
-//        socketClient->write(ui->nick->text().toUtf8()
-//                        + " " + ui->message->text().toUtf8());
+        ui->message->clear();
+    }
 }
 
 void MainWindow::readSocket(QString message)
 {
     ui->textEdit->append(message);
-//    QString data = QString(socketClient->readAll());
-//    ui->textEdit->append(data);
 }
 
 void MainWindow::setNick(QString nickname){
@@ -77,5 +74,5 @@ void MainWindow::authorisation(){
 
 void MainWindow::serverDisconnected()
 {
-    QMessageBox::information(NULL,QObject::tr("Информация"),tr("Сервер был отключен"));
+    QMessageBox::information(NULL,QObject::tr("Информация"),tr("Нет подключения к серверу"));
 }

@@ -47,6 +47,14 @@ private:
      * @param message
      */
     void sender(QString message);
+    /**
+     * @brief hide elements
+     */
+    void hideEl();
+    /**
+     * @brief show elements
+     */
+    void showEl();
 
 private slots:
     /**
@@ -71,6 +79,9 @@ private slots:
      * @param info
      */
     void getInfo(QString info);
+    /**
+     * @brief set server settings
+     */
     void setSettings();
 };
 #endif // MAINWINDOW_H

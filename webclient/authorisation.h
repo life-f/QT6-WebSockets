@@ -29,6 +29,11 @@ public:
      * @return nickname
      */
     QString getNick();
+    /**
+     * @brief get Port
+     * @return port
+     */
+    quint16 getPort();
 
 private:
     Ui::Authorisation *ui;

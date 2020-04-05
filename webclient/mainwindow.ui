@@ -64,7 +64,7 @@
      <item row="2" column="0" colspan="2">
       <widget class="QLineEdit" name="message">
        <property name="placeholderText">
-        <string>Введите слово</string>
+        <string>Введите сообщение</string>
        </property>
       </widget>
      </item>

@@ -8,12 +8,13 @@
 #include <QWidget>
 #include <QtWebSockets>
 #include <QDebug>
-//#include <QStyle>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->hideEl();
     this->setWindowTitle("Server");
     icon.addFile(":/images/icon.png");
     trayIcon = new QSystemTrayIcon(this);
@@ -78,12 +79,33 @@ void MainWindow::setMenu(){
     trayIcon->setContextMenu(menu);
 }
 
+void MainWindow::hideEl()
+{
+    ui->host->hide();
+    ui->port->hide();
+    ui->settings->hide();
+    ui->label_port->hide();
+    ui->label_host->hide();
+}
+
+void MainWindow::showEl()
+{
+
+    ui->host->show();
+    ui->port->show();
+    ui->settings->show();
+    ui->label_host->show();
+    ui->label_port->show();
+}
+
 void MainWindow::serverStart(){
     if (ui->status->currentText() == "ON"){
         server = new Server();
         connect(server, &Server::info, this, &MainWindow::getInfo);
+        this->showEl();
     } else {
         delete server;
+        this->hideEl();
     }
 }
 
@@ -101,5 +123,15 @@ void MainWindow::getInfo(QString info){
 
 void MainWindow::setSettings()
 {
-    server->setSettings(ui->port->displayText(), ui->host->displayText().toUInt());
+    QString host;
+    quint16 port;
+    if(ui->host->displayText() == "")
+        host = "127.0.0.1";
+    else
+        host = ui->host->displayText();
+    if(ui->port->displayText() == "")
+        port = 1337;
+    else
+        port = ui->port->displayText().toUInt();
+    server->setSettings(host, port);
 }

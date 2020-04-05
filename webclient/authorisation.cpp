@@ -21,7 +21,7 @@ Authorisation::~Authorisation()
 }
 
 void Authorisation::pushOk(){
-    if(ui->nick->displayText() == ""){
+    if(ui->nick->displayText() == "" || ui->nick->displayText() == " "){
         QMessageBox::information(NULL,QObject::tr("Ошибка"), tr("Введите никнейм!"));
         return;
     }
@@ -32,4 +32,13 @@ void Authorisation::pushOk(){
 
 QString Authorisation::getNick(){
     return nick;
+}
+
+quint16 Authorisation::getPort()
+{
+    quint16 port = 1337;
+    if (ui->port->displayText() == "")
+        return port;
+    else
+        return ui->port->displayText().toUInt();
 }

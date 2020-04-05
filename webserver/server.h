@@ -9,6 +9,7 @@
 #include <QObject>
 #include <QWebSocketServer>
 #include <QSettings>
+#include <QSqlDatabase>
 
 class Server : public QObject
 {
@@ -26,11 +27,14 @@ private:
      * @brief list of clients
      */
     QList <QWebSocket*> clients;
+    /**
+     * @brief settings
+     */
     QSettings *settings;
-
-//    QFile f;
-//    QStringList list;
-    int k = 0;
+    /**
+     * @brief database
+     */
+    QSqlDatabase db;
 
 public:
     /**
@@ -42,16 +46,37 @@ public:
       * @brief Server destructor
       */
     ~Server();
+
+private:
     /**
      * @brief Send message for all users
      * @param message
      */
     void sender(QString message);
+    /**
+     * @brief connect database
+     */
+    void connectDatabase();
+    /**
+     * @brief record message
+     * @param nick
+     * @param message
+     */
+    void recordMessage(QString nick, QString message);
 
 public slots:
+    /**
+     * @brief set settings for server
+     * @param host
+     * @param port
+     */
     void setSettings(QString host, quint16 port);
 
 private slots:
+    /**
+     * @brief read settings
+     * @return port
+     */
     quint16 readSettings();
     /**
      * @brief connect User
@@ -60,7 +85,7 @@ private slots:
     /**
      * @brief message from client
      */
-    void runClientAction();
+    void runClientAction(QString message);
     /**
      * @brief disconnect User
      */
@@ -72,16 +97,10 @@ private slots:
 
 signals:
     /**
-     * @brief server close
-     */
-//    void serverDisconnected();
-    /**
      * @brief information
      * @param info - message with information
      */
     void info(QString info);
-    void settingsChanged();
-
 };
 
 #endif // SERVER_H
