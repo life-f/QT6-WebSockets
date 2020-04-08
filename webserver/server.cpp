@@ -73,22 +73,38 @@ void Server::recordMessage(QString nick, QString message)
 
 void Server::setSettings(QString host, quint16 port)
 {
-    settings = new QSettings(":/setting.ini", QSettings::IniFormat);
-    settings->beginGroup("Settings");
-    settings->setValue( "host", host);
-    settings->setValue("port", port);
-    settings->endGroup();
-    QMessageBox::information(NULL,QObject::tr("Информация"),tr("Настройки сервера изменены. Перезапустите сервер"));
+    QFile f;
+    f.setFileName("setting.ini");
+    if(f.open(QIODevice::ReadWrite)){
+        settings = new QSettings("setting.ini", QSettings::IniFormat);
+        settings->beginGroup("Settings");
+        settings->setValue( "host", host);
+        settings->setValue("port", port);
+        settings->endGroup();
+        QMessageBox::information(NULL,QObject::tr("Информация"),tr("Настройки сервера изменены. Перезапустите сервер"));
+    }
+    f.close();
 }
 
 quint16 Server::readSettings()
 {
-    settings = new QSettings(":/setting.ini", QSettings::IniFormat);
-    settings->beginGroup("Settings");
-    QString host = settings->value("host").toString();
-    quint16 port = settings->value("port").toUInt();
-    settings->endGroup();
-    return port;
+    QFile f;
+    f.setFileName("setting.ini");
+    if(f.exists()){
+        settings = new QSettings("setting.ini", QSettings::IniFormat);
+        settings->beginGroup("Settings");
+        QString host = settings->value("host").toString();
+        quint16 port = settings->value("port").toUInt();
+        settings->endGroup();
+        return port;
+    } else{
+        settings = new QSettings(":/setting.ini", QSettings::IniFormat);
+        settings->beginGroup("Settings");
+        QString host = settings->value("host").toString();
+        quint16 port = settings->value("port").toUInt();
+        settings->endGroup();
+        return port;
+    }
 }
 
 void Server::connectUser()
