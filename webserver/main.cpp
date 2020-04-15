@@ -1,6 +1,6 @@
 /**
  * @file main.cpp
- * @author Agapova Ekaterina
+ * @author Bagrova Polina
  */
 #include "mainwindow.h"
 
