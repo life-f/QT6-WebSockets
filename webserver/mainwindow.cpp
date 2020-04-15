@@ -103,6 +103,8 @@ void MainWindow::serverStart(){
         server = new Server();
         connect(server, &Server::info, this, &MainWindow::getInfo);
         this->showEl();
+        ui->host->setText(server->getHost());
+        ui->port->setText(server->getPort());
     } else {
         delete server;
         this->hideEl();

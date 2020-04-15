@@ -46,6 +46,16 @@ public:
       * @brief Server destructor
       */
     ~Server();
+    /**
+     * @brief getPort
+     * @return port
+     */
+    QString getPort();
+    /**
+     * @brief getHost
+     * @return host
+     */
+    QString getHost();
 
 private:
     /**

@@ -37,6 +37,22 @@ Server::~Server(){
     webServer->close();
 }
 
+QString Server::getPort()
+{
+    settings->beginGroup("Settings");
+    QString port = settings->value("port").toString();
+    settings->endGroup();
+    return port;
+}
+
+QString Server::getHost()
+{
+    settings->beginGroup("Settings");
+    QString host = settings->value("host").toString();
+    settings->endGroup();
+    return host;
+}
+
 void Server::sender(QString message){
     foreach (client, clients) {
         QWebSocket* clientSock = (QWebSocket*) client;

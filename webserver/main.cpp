@@ -1,3 +1,7 @@
+/**
+ * @file main.cpp
+ * @author Agapova Ekaterina
+ */
 #include "mainwindow.h"
 
 #include <QApplication>
